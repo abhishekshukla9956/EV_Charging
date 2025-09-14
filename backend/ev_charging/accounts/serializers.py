@@ -35,3 +35,9 @@ class UpdateUserSerializer(serializers.ModelSerializer):
             "latitude": {"required": False},
             "longitude": {"required": False},
         }
+
+
+class UserLocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("latitude", "longitude")

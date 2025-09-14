@@ -6,7 +6,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth import get_user_model
-from .serializers import RegisterSerializer, UserSerializer, UpdateUserSerializer
+from .serializers import RegisterSerializer, UserLocationSerializer, UserSerializer, UpdateUserSerializer
 
 User = get_user_model()
 
@@ -55,6 +55,14 @@ class CurrentUserView(generics.RetrieveAPIView):
 class UpdateCurrentUserView(generics.UpdateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UpdateUserSerializer
+
+    def get_object(self):
+        return self.request.user
+
+
+class UpdateLocationView(generics.UpdateAPIView):
+    serializer_class = UserLocationSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         return self.request.user
