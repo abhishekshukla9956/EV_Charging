@@ -23,7 +23,7 @@ Django==5.2.4
 django-cors-headers==4.7.0
 django-redis==6.0.0
 djangorestframework==3.16.0
-djangorestframework_simplejwt==5.5.1
+djangorestframework_simplejwt==5.2.2
 docstring_parser==0.16
 eval_type_backport==0.2.2
 filetype==1.2.0
@@ -89,7 +89,7 @@ pyasn1_modules==0.4.2
 pycparser==2.22
 pydantic==2.11.7
 pydantic_core==2.33.2
-PyJWT==2.10.1
+PyJWT==2.8.0
 pylint==3.3.8
 pylint-django==2.6.1
 pylint-plugin-utils==0.9.0
