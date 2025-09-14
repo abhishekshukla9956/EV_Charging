@@ -1,10 +1,14 @@
+
 from django.db import models
 from django.conf import settings
 
 
 class Station(models.Model):
     operator = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, limit_choices_to={'role': 'operator'})
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        limit_choices_to={'role': 'operator'}
+    )
     name = models.CharField(max_length=200)
     address = models.TextField()
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
@@ -20,7 +24,10 @@ class Station(models.Model):
 
 class Rating(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, limit_choices_to={'role': 'user'})
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        limit_choices_to={'role': 'user'}
+    )
     station = models.ForeignKey(
         Station, on_delete=models.CASCADE, related_name='ratings')
     score = models.PositiveSmallIntegerField()

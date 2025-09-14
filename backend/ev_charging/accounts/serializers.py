@@ -9,7 +9,8 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "email", "full_name", "password", "role")
+        fields = ("id", "email", "full_name", "password",
+                  "role", "latitude", "longitude")
         read_only_fields = ("id",)
 
     def create(self, validated_data):
@@ -21,4 +22,16 @@ class RegisterSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "email", "full_name", "role", "is_staff", "is_active")
+        fields = ("id", "email", "full_name", "role", "is_staff",
+                  "is_active", "latitude", "longitude")
+
+
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("full_name", "latitude", "longitude")
+        extra_kwargs = {
+            "full_name": {"required": False},
+            "latitude": {"required": False},
+            "longitude": {"required": False},
+        }

@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
 from .models import User
 
 
@@ -13,7 +12,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'full_name', 'role')
+        fields = ('email', 'full_name', 'role', 'latitude', 'longitude')
 
     def clean_password2(self):
         p1 = self.cleaned_data.get("password1")
@@ -35,20 +34,21 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'full_name', 'password',
-                  'role', 'is_active', 'is_staff')
+        fields = ('email', 'full_name', 'password', 'role',
+                  'is_active', 'is_staff', 'latitude', 'longitude')
 
 
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('email', 'full_name', 'role', 'is_staff', 'is_active')
+    list_display = ('email', 'full_name', 'role', 'is_staff',
+                    'is_active', 'latitude', 'longitude')
     list_filter = ('role', 'is_staff', 'is_active')
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('full_name',)}),
+        ('Personal info', {'fields': ('full_name', 'latitude', 'longitude')}),
         ('Permissions', {'fields': ('role', 'is_staff', 'is_active',
          'is_superuser', 'groups', 'user_permissions')}),
     )
@@ -56,7 +56,7 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'full_name', 'role', 'password1', 'password2'),
+            'fields': ('email', 'full_name', 'role', 'latitude', 'longitude', 'password1', 'password2'),
         }),
     )
 
