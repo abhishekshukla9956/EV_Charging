@@ -9,6 +9,7 @@ class StationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Station
         fields = '__all__'
+        read_only_fields = ["operator"]
 
     def get_available_charging_points(self, obj):
         return obj.total_charging_points - obj.occupied_charging_points

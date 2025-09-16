@@ -1,9 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
-import UserDashboard from "./components/Dashboard/UserDashboard";
-import Booking from "./components/Dashboard/Booking";
+import UserDashboard from "./components/Dashboard/Users/UserDashboard";
+import Booking from "./components/Dashboard/Users/Booking";
+import OperatorDashboard from "./components/Dashboard/Operator/OperatorDashboard";
+import StaffDashboard from "./components/Dashboard/StaffDashboards";
+import BookingHistory from "./components/Dashboard/Users/BookingHistory";
 
 function App() {
   return (
@@ -12,8 +16,46 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<UserDashboard />} />
-          <Route path="/booking" element={<Booking />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute role="user">
+                <UserDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/operator"
+            element={
+              <ProtectedRoute role="operator">
+                <OperatorDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/staff"
+            element={
+              <ProtectedRoute role="staff">
+                <StaffDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/booking/:id"
+            element={
+              <ProtectedRoute>
+                <Booking />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user/bookings"
+            element={
+              <ProtectedRoute>
+                <BookingHistory />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </AuthProvider>
